@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { clearCartAsync, fetchCart } from '@/store/slices/cartSlice';
 import axios from '../api/axios';
-import RazorpayPayment from '@/components/Payment/RazorpayPayment';
+import RazorpayPayment from '@/components/payment/RazorpayPayment';
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();

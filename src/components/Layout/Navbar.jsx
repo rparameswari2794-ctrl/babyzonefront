@@ -4,7 +4,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginSuccess, logout } from '@/store/slices/authSlice';
 import { fetchCart } from '@/store/slices/cartSlice';
-import CategoriesDropdown from '../CategoriesDropDown';
+import CategoriesDropdown from '../CategoriesDropdown';
 
 const Navbar = () => {
   const navigate = useNavigate();

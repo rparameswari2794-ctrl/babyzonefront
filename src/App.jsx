@@ -23,13 +23,13 @@ import ForumPage from '@/pages/ForumPage';
 import ParentingClassesPage from '@/pages/ParentingClassesPage';
 import AboutPage from '@/pages/AboutPage';
 import ContactPage from '@/pages/ContactPage';
-import SubcategoryPage from '@/pages/SubcategoryPage';
+import SubcategoryPage from '@/pages/SubCategoryPage';
 import OrderSuccessPage from '@/pages/OrderSuccessPage';
 import TrackOrderPage from './pages/TrackOrderPage';
 import WishlistPage from './pages/WishlistPage';
 
 // Components
-import PrivateRoute from '@/components/Common/PrivateRoute';
+import PrivateRoute from '@/components/common/PrivateRoute';
 import NotFoundPage from '@/pages/NotFoundPage';
 
 function App() {
