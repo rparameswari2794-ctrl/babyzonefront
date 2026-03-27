@@ -1,0 +1,752 @@
+body {
+    font-family: 'Quicksand', sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: white !important;
+    min-height: 100vh;
+}
+
+/* Fix for root element */
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Layout fixes */
+.header-slide {
+    background: linear-gradient(135deg, #fbbf24 0%, #f6cd03 100%);
+    color: black;
+    padding: 12px 0;
+    transition: all 0.5s ease;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Optional: Add animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header-slide .animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.div1, .div2 {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Smiley Container */
+.smiley {
+    width: 12px;
+    height: 12px;
+    background: #FFD93B;
+    border-radius: 50%;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border:2px solid #F9385A;
+    padding: 1px;
+}
+
+/* Heart Eyes */
+.eye {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: #F9385A;
+    transform: rotate(-45deg);
+    top: 3px;
+}
+
+/* Left eye */
+.eye.left {
+    left: 1px;
+}
+
+/* Right eye */
+.eye.right {
+    right: 1px;
+}
+
+/* Create heart shape with pseudo-elements */
+.eye::before,
+.eye::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: #F9385A;
+    border-radius: 50%;
+}
+
+.eye::before {
+    top: -1px;
+    left: 0;
+}
+
+.eye::after {
+    left:1px;
+    top: 0;
+}
+
+/* Smile - using #F9385A */
+.mouth {
+    width: 1px;
+    height: 1px;
+    border: 2px solid #F9385A;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Navbar Styles - Add to your index.css */
+
+.navbar-brand{display: flex;flex-direction: column;height:70px;}
+
+.navbarbrand-img1{
+  width: 50px;
+  object-fit: contain;
+}
+.navbarbrand-img2{
+  width: 40px;
+  object-fit: contain;
+}
+
+.brand-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #fbbf24, #f6cd03);
+ 
+}
+.input-group{border: 1px solid black;border-radius: 25px;width:250px;}
+.nav-form{border: none !important;display: flex;gap:10px;}
+.input-group-text{border: none !important;border-radius: 25px;background-color: white;}
+.form-control{border: none;border-radius: 25px; }
+.form-control::placeholder{font-size: 12px;color: black;}
+.form-btn{border-radius: 50%;}
+.categories-bar {
+  background: #fd99d7;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.category-container {
+  display: flex;
+  background-color: transparent;
+  justify-content: space-between;
+  }
+
+.dropdown-toggle, .nav-btn{background-color:transparent;
+font-size: 14px;
+border-radius: 0;
+font-weight: 600;
+border: none;
+color: black;}
+
+
+.message-toast,
+.join-request {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #333;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  z-index: 2000;
+  animation: slideIn 0.3s ease;
+}
+
+.join-request {
+  background: #4caf50;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.nav-item .nav-link{color:black;font-weight: 600;}
+.nav-item .nav-link.active-link{color:red !important;}
+
+
+.slideshow-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* General Wrapper */
+.slideshow-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.bg-pink {
+  background-color: #feacdb !important;
+}
+
+.banner-height {
+  min-height: 420px;
+}
+
+/* ===== Layout 1: The Exact Slant ===== */
+.left-slant {
+  /* Top-right pulls left (75%), Bottom-right pushes right (100%) */
+  clip-path: polygon(0% 0%, 75% 0%, 100% 100%, 0% 100%);
+  margin-right: -10%; /* Creates the overlap with the pink center */
+  z-index: 1;
+  width:40%;
+  object-fit: cover;
+}
+
+.right-slant {
+  /* Top-left pulls left (0%), Bottom-left pushes right (25%) */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%);
+  margin-left: -10%; /* Creates the overlap with the pink center */
+  z-index: 1;
+  width: 40%;
+  object-fit: cover;
+}
+
+.banner-img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+.skew-box{
+  width:40%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  overflow:hidden;
+  padding: 20px;
+  align-items: center;
+  
+}
+.banner-text{width: 150px;font-size:20px !important;font-weight: 600;}
+.black-badge-skew {
+  background: #000;
+  color: #fff;
+  padding: 12px;
+  display: flex;
+  transform: skew(15deg); /* Matches the slope of the images */
+  font-size: 1.6rem;
+  font-weight: bold;
+  width:60%;
+  flex-direction: row;
+  gap:5px;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.black-badge-skew span {
+  display: block;
+  transform: skew(-15deg); /* Straightens the text */
+}
+
+.pink-text {
+  color: #f9aad7;
+}
+
+.banner-text {
+  font-size: 2.2rem;
+  color: #333;
+  line-height: 1.2;
+}
+
+/* ===== Layout 2: Product Cards ===== */
+.product-card img {
+  height: 320px;
+  width: 220px;
+  object-fit: cover;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.black-badge-straight {
+  background: #000;
+  color: #fff;
+  padding: 8px 25px;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Buttons */
+.shop-now-btn {
+  background: #ffdb3a;
+  border: none;
+  padding: 10px 40px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.shop-now-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation Arrows */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #000;
+  color: #fff;
+  border: none;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* Container for the Oval Image */
+.oval-container {
+  width: 150px;
+  height: 200px;
+  border: 4px solid #faafda; /* Light pink border */
+  border-radius: 50% / 45%; /* Vertical oval shape */
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease-in-out, border-color 0.3s ease; /* Smooth scaling */
+  margin: 0 auto;
+}
+
+.category-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50% / 45%;
+  display: block;
+}
+
+/* Hover Effect: Scale the entire card 1.1x bigger */
+.category-item:hover .oval-container {
+  transform: scale(1.1); /* Enlarges the card */
+  border-color: #f6aad5; /* Slightly darker pink on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Adds depth when lifted */
+}
+
+/* Category Label Styling */
+.category-label {
+  font-size: 14px;
+  transition: color 0.3s ease;
+  margin-top: 10px;
+}
+
+.cat-section{margin-left: 10px;margin-right: 10px;border-bottom: 1px solid black;}
+
+/* Card Container */
+.product-card {
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 12px !important;
+  transition: transform 0.2s ease-in-out;
+  background-color: #ffffff;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Image Wrapper */
+.product-img-wrapper {
+  height: 180px; /* Consistent height for grid */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.product-img-wrapper img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain; /* Ensures images are centered and not cropped */
+}
+
+/* Text Styling */
+
+.product-mrp {
+  font-size: 0.85rem;
+  color: #757575;
+  margin-bottom: 12px;
+}
+
+/* The Yellow "Buy" Button */
+.buy-btn {
+  background-color: #ffdb3a !important; /* Exact yellow shade from reference */
+  border: none !important;
+  border-radius: 8px !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+  padding: 8px 0 !important;
+  transition: background-color 0.2s;
+}
+
+.buy-btn:hover {
+  background-color: #f0ce30 !important;
+}
+
+.brand-wheel {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  /* Adds a soft fade effect on the edges */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+.brand-slide {
+  display: flex;
+  white-space: nowrap;
+  animation: scroll 40s linear infinite;
+}
+
+.brand-item {
+  flex: 0 0 auto;
+  padding: 0 20px;
+}
+
+.brand-card {
+  width: 200px;
+  height: 80px;
+  border: 1px solid #0b0b0b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: #fff;
+}
+.brand-card img{object-fit: cover;height: 100%;}
+
+/* The Rolling Animation Logic */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Moves exactly half the width of the double list */
+  }
+}
+
+/* Pause animation on hover so users can see a specific brand */
+.brand-wheel:hover .brand-slide {
+  animation-play-state: paused;
+}
+
+.testimonial-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #060606;
+  border-radius: 15px;
+  margin-top: 45px; /* Creates space for the avatar to sit on the border */
+  padding: 15px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar-wrapper {
+  position: absolute;
+  top: -45px; /* Half of the avatar height */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1px solid #060606;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body-custom {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-text {
+  font-size: 0.75rem;
+  flex-grow: 1;
+  color:black;
+  font-weight: 600;
+}
+
+
+
+
+.view-btn{margin-left: 80%;}
+/* Custom Pink Background */
+/* Background for Top Selling section */
+.bg-pink-section {
+    background-color: #FFB2E6 !important; /* Bright Pink */
+}
+.fa-instagram {
+  background: -webkit-linear-gradient(#f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  border-radius: 10px ;
+}
+
+.scroll-wrapper { overflow: hidden; width: 100%; position: relative; }
+
+.auto-scroll-track {
+  display: flex;
+  width: calc(300px * 8); 
+  animation: scroll 25s linear infinite;
+}
+
+.auto-scroll-track:hover { animation-play-state: paused; }
+
+.custom-card-container { width: 300px; flex-shrink: 0; padding: 0 10px; }
+
+/* Fixed height for all cards to ensure alignment */
+.card { height: 440px; display: flex; flex-direction: column; }
+
+.img-fixed-wrapper { height: 180px; width: 100%; overflow: hidden; }
+
+.img-fixed-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+.mt-auto { margin-top: auto !important; }
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-300px * 4)); }
+}
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.custom-rough-modal {
+  background-color: #FFB2E6; /* Pink color as requested */
+  padding: 40px;
+  width: 450px;
+  border-radius: 10px;
+  box-shadow: 8px 8px 20px rgba(0,0,0,0.2);
+  /* The "Rough Edge" effect */
+  
+}
+
+.modal-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 25px;
+  font-size: 20px;
+}
+
+.modal-overlay .input-group {
+  margin-bottom: 15px;
+  border: none;
+}
+
+.modal-overlay .input-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.modal-overlay .input-group input {
+  width: 100% !important;
+  padding: 10px;
+  border:1px solid black;
+  background: white;
+}
+
+.password-wrapper {
+  position: relative;
+  width:100%;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.forgot-pass {
+  text-align: right;
+  font-size: 12px;
+  color: #080808;
+  margin-top: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Spaces the buttons apart in one row */
+  margin-top: 20px;
+}
+
+.btn-back {
+  background: #f4b47e; /* Orange/Tan color from your image */
+  border: none;
+  padding: 10px 30px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-submit-form {
+  background: #ffd700; /* Yellow color from your image */
+  border: none;
+  padding: 10px 30px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+  
+
+/* Fixed Product Pages */
+.products-page-wrapper {
+  min-height: auto;
+  flex: 1;
+  width: 100%;
+}
+
+/* Fixed Checkout Page */
+.checkout-page-wrapper {
+  min-height: auto;
+  flex: 1;
+  width: 100%;
+}
+
+/* Main content wrapper */
+.main-content {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+}
+
+/* Ensure containers don't overflow */
+.container,
+.container-fluid {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Remove fixed heights that were causing issues */
+.products-page-wrapper,
+.products-page { 
+  height: auto !important;
+  margin-bottom: 0 !important;
+  flex: 1;
+}
+
+/* Sticky order summary for checkout */
+.sticky-top {
+  position: sticky;
+  top: 20px;
+  z-index: 1020;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filter-sidebar {
+    position: relative;
+    top: 0;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .sticky-top {
+    position: relative;
+    top: 0;
+  }
+}
+/* Categories Dropdown Styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.categories-dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  z-index: 1000;
+}
+
+.dropdown.show .categories-dropdown {
+  display: block;
+}
+
+/* Make sure dropdown stays visible on hover */
+.dropdown:hover .categories-dropdown {
+  display: block;
+}
+
+
+  
+  /* Stack columns vertically on mobile */
+  .categories-dropdown > div {
+    flex-direction: row !important;
+  }
+  
+  .categories-dropdown > div > div {
+    border-right: none !important;
+    border-bottom: 1px solid #e9ecef;
+  }
