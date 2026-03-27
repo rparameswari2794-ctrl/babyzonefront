@@ -39,7 +39,7 @@ export default function CustomSlideshow() {
       {/* ===== LAYOUT 1: Slanted Parallelogram ===== */}
       {currentIndex === 0 && (
         <div className="container-fluid p-0 position-relative">
-          <div className="row g-0 align-items-center bg-pink banner-height">
+          <div className="row g-0 align-items-center bg-pink banner-height" style={{ display: 'flex', flexDirection: 'row' }}>
             {/* Left Image */}
             <div className="col-lg-4 col-md-4 col-sm-4 p-0 left-slant">
               <img src={slide.images[0]} className="banner-img" alt="left" />

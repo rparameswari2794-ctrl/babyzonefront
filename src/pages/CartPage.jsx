@@ -70,20 +70,38 @@ const CartPage = () => {
   };
 
   // Helper to get full image URL
+  // Replace the existing getFullImageUrl function with this:
+
   const getFullImageUrl = (imagePath) => {
     if (!imagePath) return '/images/placeholder.jpg';
+
+    // If it's already a full URL
     if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      // If it's HTTP, convert to HTTPS for production
+      if (imagePath.startsWith('http://')) {
+        return imagePath.replace('http://', 'https://');
+      }
       return imagePath;
     }
+
+    // If it's a media path from backend
     if (imagePath.startsWith('/media')) {
-      return `http://127.0.0.1:8000${imagePath}`;
+      return `https://eswari0207.pythonanywhere.com${imagePath}`;
     }
+
+    // If it starts with products/ (from backend)
+    if (imagePath.startsWith('products/')) {
+      return `https://eswari0207.pythonanywhere.com/media/${imagePath}`;
+    }
+
+    // If it's a local image from public folder
     if (imagePath.startsWith('/images')) {
       return imagePath;
     }
-    return `/images/${imagePath}`;
-  };
 
+    // Default fallback - try backend
+    return `https://eswari0207.pythonanywhere.com/media/${imagePath}`;
+  };
   // Helper to get product image from cart item
   const getProductImage = (item) => {
     const imageUrl = item.product_image || item.image || item.product?.image || item.product?.product_image;
@@ -205,7 +223,7 @@ const CartPage = () => {
       <div className="row g-4">
         {/* Cart Items Section */}
         <div className="col-lg-8">
-          <div className="card shadow-sm border-0 rounded-4" style={{height:'auto'}}>
+          <div className="card shadow-sm border-0 rounded-4" style={{ height: 'auto' }}>
             <div className="card-body p-0">
               <div className="table-responsive">
                 <table className="table table-borderless mb-0">

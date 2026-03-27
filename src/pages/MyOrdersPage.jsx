@@ -28,7 +28,7 @@ const MyOrdersPage = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const refreshIntervalRef = useRef(null);
-  const BACKEND_URL = 'http://127.0.0.1:8000';
+  const BACKEND_URL = 'https://eswari0207.pythonanywhere.com';
 
   const fetchOrders = async (showToast = false, isManual = false) => {
     if (!isManual) {
@@ -114,18 +114,36 @@ const MyOrdersPage = () => {
 
   const getFullImageUrl = (imagePath) => {
     if (!imagePath) return '/images/placeholder.jpg';
+
+    // If it's already a full URL
     if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      // Convert HTTP to HTTPS for production
+      if (imagePath.startsWith('http://')) {
+        return imagePath.replace('http://', 'https://');
+      }
       return imagePath;
     }
+
+    // If it's a media path from backend
     if (imagePath.startsWith('/media/')) {
       return `${BACKEND_URL}${imagePath}`;
     }
+
     if (imagePath.startsWith('media/')) {
       return `${BACKEND_URL}/${imagePath}`;
     }
-    if (imagePath.startsWith('/')) {
-      return `${BACKEND_URL}${imagePath}`;
+
+    // If it starts with products/ (from backend)
+    if (imagePath.startsWith('products/')) {
+      return `${BACKEND_URL}/media/${imagePath}`;
     }
+
+    // If it's a local image from public folder
+    if (imagePath.startsWith('/images')) {
+      return imagePath;
+    }
+
+    // Default fallback
     return `${BACKEND_URL}/media/${imagePath}`;
   };
 
@@ -925,8 +943,8 @@ const MyOrdersPage = () => {
                   </div>
 
                   <div className="row mb-3">
-                    
-                    
+
+
                     <div className="col-md-9">
                       <h6 className="fw-bold">{rental.product_name}</h6>
                       <div className="row mt-2">

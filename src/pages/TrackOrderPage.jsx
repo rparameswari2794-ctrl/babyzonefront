@@ -20,7 +20,7 @@ const TrackOrderPage = () => {
     const [lastUpdated, setLastUpdated] = useState(null);
     const refreshIntervalRef = useRef(null);
 
-    const BACKEND_URL = 'http://127.0.0.1:8000';
+    const BACKEND_URL = 'https://eswari0207.pythonanywhere.com';
 
     // Define the complete status order for regular orders
     const STATUS_ORDER = [
@@ -121,10 +121,37 @@ const TrackOrderPage = () => {
 
     const getFullImageUrl = (imagePath) => {
         if (!imagePath) return '/images/placeholder.jpg';
-        if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) return imagePath;
-        if (imagePath.startsWith('/media')) return `${BACKEND_URL}${imagePath}`;
-        if (imagePath.startsWith('media/')) return `${BACKEND_URL}/${imagePath}`;
-        return imagePath;
+
+        // If it's already a full URL
+        if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+            // Convert HTTP to HTTPS for production
+            if (imagePath.startsWith('http://')) {
+                return imagePath.replace('http://', 'https://');
+            }
+            return imagePath;
+        }
+
+        // If it's a media path from backend
+        if (imagePath.startsWith('/media/')) {
+            return `${BACKEND_URL}${imagePath}`;
+        }
+
+        if (imagePath.startsWith('media/')) {
+            return `${BACKEND_URL}/${imagePath}`;
+        }
+
+        // If it starts with products/ (from backend)
+        if (imagePath.startsWith('products/')) {
+            return `${BACKEND_URL}/media/${imagePath}`;
+        }
+
+        // If it's a local image from public folder
+        if (imagePath.startsWith('/images')) {
+            return imagePath;
+        }
+
+        // Default fallback
+        return `${BACKEND_URL}/media/${imagePath}`;
     };
 
     const getStatusPriority = (status, orderType = 'regular') => {
@@ -558,7 +585,7 @@ const TrackOrderPage = () => {
                         alignItems: 'center',
                         gap: '0.5rem'
                     }}>
-                        <i className={`fas ${getStatusIcon(order.status)}`}></i> 
+                        <i className={`fas ${getStatusIcon(order.status)}`}></i>
                         {order.status_display || order.status?.toUpperCase()}
                     </span>
                     <span style={{
@@ -577,9 +604,9 @@ const TrackOrderPage = () => {
                 {/* Progress Tracker */}
                 {!isCancelled && (
                     <div style={{ marginBottom: '3rem', position: 'relative', padding: '1rem 0' }}>
-                        <div style={{ 
-                            display: 'flex', 
-                            justifyContent: 'space-between', 
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
                             marginBottom: '2rem',
                             position: 'relative',
                             zIndex: 2
@@ -587,10 +614,10 @@ const TrackOrderPage = () => {
                             {STATUS_ORDER.map((step, idx) => {
                                 const completed = step.order <= currentPriority;
                                 const active = step.order === currentPriority;
-                                
+
                                 return (
-                                    <div key={idx} style={{ 
-                                        textAlign: 'center', 
+                                    <div key={idx} style={{
+                                        textAlign: 'center',
                                         flex: 1,
                                         position: 'relative'
                                     }}>
@@ -611,14 +638,14 @@ const TrackOrderPage = () => {
                                             {completed ? (
                                                 <i className="fas fa-check" style={{ color: 'white', fontSize: '1.25rem' }}></i>
                                             ) : (
-                                                <i className={`fas ${step.icon}`} style={{ 
+                                                <i className={`fas ${step.icon}`} style={{
                                                     color: active ? '#d63384' : '#adb5bd',
                                                     fontSize: '1.25rem'
                                                 }}></i>
                                             )}
                                         </div>
-                                        <p style={{ 
-                                            fontSize: '0.85rem', 
+                                        <p style={{
+                                            fontSize: '0.85rem',
                                             marginTop: '0.75rem',
                                             fontWeight: active ? 'bold' : 'normal',
                                             color: active ? '#d63384' : '#6c757d'
@@ -645,7 +672,7 @@ const TrackOrderPage = () => {
                                 );
                             })}
                         </div>
-                        
+
                         <div style={{
                             position: 'absolute',
                             top: 'calc(30px + 1rem)',
@@ -678,7 +705,7 @@ const TrackOrderPage = () => {
                         </h4>
                         <div style={{ position: 'relative' }}>
                             {order.status_history.map((history, idx) => (
-                                <div key={idx} style={{ 
+                                <div key={idx} style={{
                                     padding: '1rem',
                                     borderLeft: idx !== order.status_history.length - 1 ? '2px dashed #dee2e6' : 'none',
                                     position: 'relative',
@@ -697,7 +724,7 @@ const TrackOrderPage = () => {
                                         border: '2px solid white',
                                         boxShadow: getStatusPriority(history.status) === currentPriority ? '0 0 0 3px rgba(214, 51, 132, 0.3)' : 'none'
                                     }}></div>
-                                    <div style={{ 
+                                    <div style={{
                                         display: 'flex',
                                         justifyContent: 'space-between',
                                         alignItems: 'flex-start',
@@ -705,14 +732,14 @@ const TrackOrderPage = () => {
                                         gap: '0.5rem'
                                     }}>
                                         <div>
-                                            <strong style={{ 
+                                            <strong style={{
                                                 color: getStatusBadgeColor(history.status),
                                                 fontSize: getStatusPriority(history.status) === currentPriority ? '1.1rem' : '1rem'
                                             }}>
                                                 {history.status?.toUpperCase()}
                                                 {getStatusPriority(history.status) === currentPriority && (
-                                                    <span style={{ 
-                                                        marginLeft: '0.5rem', 
+                                                    <span style={{
+                                                        marginLeft: '0.5rem',
                                                         fontSize: '0.75rem',
                                                         background: '#d63384',
                                                         color: 'white',
@@ -750,22 +777,22 @@ const TrackOrderPage = () => {
                         <i className="fas fa-box-open"></i> Order Items
                     </h4>
                     {order.items && order.items.map((item, idx) => (
-                        <div key={idx} style={{ 
-                            display: 'flex', 
-                            gap: '1rem', 
+                        <div key={idx} style={{
+                            display: 'flex',
+                            gap: '1rem',
                             padding: '1rem 0',
                             borderBottom: idx !== order.items.length - 1 ? '1px solid #e0e0e0' : 'none'
                         }}>
-                            <img 
-                                src={getFullImageUrl(item.product_image)} 
-                                alt={item.product_name} 
-                                style={{ 
-                                    width: '80px', 
-                                    height: '80px', 
-                                    objectFit: 'cover', 
+                            <img
+                                src={getFullImageUrl(item.product_image)}
+                                alt={item.product_name}
+                                style={{
+                                    width: '80px',
+                                    height: '80px',
+                                    objectFit: 'cover',
                                     borderRadius: '8px',
                                     background: '#fff'
-                                }} 
+                                }}
                             />
                             <div style={{ flex: 1 }}>
                                 <strong style={{ fontSize: '1rem' }}>{item.product_name}</strong>
@@ -793,7 +820,7 @@ const TrackOrderPage = () => {
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                         <div>
                             <p style={{ color: '#6c757d', margin: 0, fontSize: '0.875rem' }}>Status</p>
-                            <strong style={{ 
+                            <strong style={{
                                 color: order.payment_status?.toLowerCase() === 'paid' ? '#198754' : '#ffc107'
                             }}>
                                 {order.payment_status?.toUpperCase() || 'PENDING'}
