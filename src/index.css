@@ -224,7 +224,7 @@ color: black;}
   clip-path: polygon(0% 0%, 75% 0%, 100% 100%, 0% 100%);
   margin-right: -10%; /* Creates the overlap with the pink center */
   z-index: 1;
-  width:40%;
+  width:33.33%;
   object-fit: cover;
 }
 
@@ -233,7 +233,7 @@ color: black;}
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 25% 100%);
   margin-left: -10%; /* Creates the overlap with the pink center */
   z-index: 1;
-  width: 40%;
+  width: 33.33%;
   object-fit: cover;
 }
 
