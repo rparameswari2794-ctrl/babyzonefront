@@ -14,6 +14,7 @@ body {
     min-height: 100vh;
 }
 
+
 /* Layout fixes */
 .header-slide {
     background: linear-gradient(135deg, #fbbf24 0%, #f6cd03 100%);
