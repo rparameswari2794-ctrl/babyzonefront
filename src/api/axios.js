@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://eswari0207.pythonanywhere.com/api/',  // Relative URL - Vite proxy will handle it
+  baseURL: `${import.meta.env.VITE_API_URL}/api/`,  // Relative URL - Vite proxy will handle it
   headers: {
     'Content-Type': 'application/json',
   },
@@ -50,7 +50,7 @@ instance.interceptors.response.use(
         const refreshToken = localStorage.getItem('refresh_token');
         if (refreshToken) {
           const response = await axios.post(
-            '/api/auth/token/refresh/',  // Relative URL
+            `${import.meta.env.VITE_API_URL}/api/auth/token/refresh/`,  // Relative URL
             { refresh: refreshToken },
             {
               headers: {
